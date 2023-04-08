@@ -1,83 +1,60 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 
 const Items = () => {
-  // const fetchItems = async (url) => {
-  //   const res = await fetch(url, {
-  //     method: "GET",
-  //     headers: {
-  //       // "Content-Type": "application/json",
-  //       Accept: "application/json",
-  //     },
-  //   });
-  //   const data = await res.json();
-  //   console.log(data);
-  // };
+  const [items, setItems] = useState([]);
+  const fetchItems = async (url) => {
+    try {
+      const res = await fetch(url, {
+        method: "GET",
+        headers: {
+          // "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      });
 
-  // useEffect(() => {
-  //   fetchItems("/items");
-  // }, []);
+      setItems(await res.json());
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-  const style = { width: "18rem" };
-  return (
-    <div>
-      <NavBar />
-      <div className="container text-center my-5">
-        <div className="col-12 row align-items-center">
-          <div className="col-4 my-5">
-            <div className="card" style={{ style }}>
-              <img src="..." className="card-img-top" alt="..." />
-              <div className="card-body">
-                <h5 className="card-title">King Size Bed</h5>
-                <p className="card-text">price:</p>
-                <a className="btn btn-primary">Add to Cart</a>
-              </div>
-            </div>
-          </div>
-          <div className="col-4">
-            <div className="card" style={{ style }}>
-              <img src="..." className="card-img-top" alt="..." />
-              <div className="card-body">
-                <h5 className="card-title">Comfy Slippers</h5>
-                <p className="card-text">price:</p>
-                <a className="btn btn-primary">Add to Cart</a>
-              </div>
-            </div>
-          </div>
-          <div className="col-4">
-            <div className="card" style={{ style }}>
-              <img src="..." className="card-img-top" alt="..." />
-              <div className="card-body">
-                <h5 className="card-title">CD Rack</h5>
-                <p className="card-text">price:</p>
-                <a className="btn btn-primary">Add to Cart</a>
-              </div>
-            </div>
-          </div>
+  useEffect(() => {
+    fetchItems("/items");
+  }, []);
 
-          <div className="col-4">
-            <div className="card" style={{ style }}>
-              <img src="..." className="card-img-top" alt="..." />
-              <div className="card-body">
-                <h5 className="card-title">Glow Stick</h5>
-                <p className="card-text">price:</p>
-                <a className="btn btn-primary">Add to Cart</a>
+  const Display = () => {
+    return (
+      <div className="container row text-center my-4 d-flex align-items-stretch justify-content-center">
+        {items.map((element) => {
+          return (
+            <div className="col-sm-3 my-3" key={element.id}>
+              <div className="card mx-4 h-100 ">
+                <img
+                  src={element.img}
+                  className="card-img-top"
+                  alt={element.name}
+                />
+                <div className="card-body d-flex flex-column align-items-center justify-content-end ">
+                  <h5 className="card-title">{element.name}</h5>
+                  <p className="card-text">price: {element.price}</p>
+                  <button className="btn btn-primary">Add to Cart</button>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="col-4">
-            <div className="card" style={{ style }}>
-              <img src="..." className="card-img-top" alt="..." />
-              <div className="card-body">
-                <h5 className="card-title">Cookie Jar</h5>
-                <p className="card-text">price:</p>
-                <a className="btn btn-primary">Add to Cart</a>
-              </div>
-            </div>
-          </div>
-        </div>
+          );
+        })}
       </div>
-    </div>
+    );
+  };
+
+  return (
+    <>
+      <NavBar />
+      <section>
+        <Display />
+      </section>
+    </>
   );
 };
 

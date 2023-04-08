@@ -1,6 +1,7 @@
 import NavBar from "../components/NavBar";
 
 const AddItems = () => {
+  const handleInput = (e) => {};
   return (
     <div>
       <NavBar />
@@ -16,6 +17,7 @@ const AddItems = () => {
               className="form-control"
               id="name"
               placeholder="Name of the item"
+              onChange={handleInput}
             />
           </div>
           <div className="mb-3 col-6">
@@ -27,6 +29,7 @@ const AddItems = () => {
               className="form-control"
               id="price"
               placeholder="Price of the item"
+              onChange={handleInput}
             />
           </div>
           <div className="mb-3 col-6">
@@ -38,6 +41,7 @@ const AddItems = () => {
               className="form-control"
               id="imgUrl"
               placeholder="Url of the image"
+              onChange={handleInput}
             />
           </div>
           <button className="btn btn-primary col-2">Submit</button>

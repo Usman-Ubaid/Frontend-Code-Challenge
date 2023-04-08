@@ -28,12 +28,12 @@ const NavBar = () => {
                   aria-current="page"
                   to="/data"
                 >
-                  Items
+                  Products
                 </Link>
               </li>
               <li className="nav-item mx-3">
                 <Link className="nav-link" to="/additems">
-                  Add Items
+                  Add Product
                 </Link>
               </li>
               <li className="nav-item mx-3">
