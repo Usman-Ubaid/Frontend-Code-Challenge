@@ -3,6 +3,7 @@ import NavBar from "../components/NavBar";
 
 const Items = () => {
   const [items, setItems] = useState([]);
+
   const fetchItems = async (url) => {
     try {
       const res = await fetch(url, {
