@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-const NavBar = () => {
+const NavBar = ({ size }) => {
   return (
     <div>
       <nav className="navbar navbar-expand-sm bg-dark navbar-dark py-3">
@@ -23,11 +23,7 @@ const NavBar = () => {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav ms-auto ">
               <li className="nav-item mx-3 ">
-                <Link
-                  className="nav-link active"
-                  aria-current="page"
-                  to="/data"
-                >
+                <Link className="nav-link " aria-current="page" to="/products">
                   Products
                 </Link>
               </li>
@@ -38,7 +34,7 @@ const NavBar = () => {
               </li>
               <li className="nav-item mx-3">
                 <Link className="nav-link" to="/cart">
-                  Cart
+                  Cart ({size})
                 </Link>
               </li>
             </ul>

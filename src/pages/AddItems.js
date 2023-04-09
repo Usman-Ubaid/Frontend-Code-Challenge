@@ -3,6 +3,7 @@ import NavBar from "../components/NavBar";
 
 const AddItems = () => {
   const [formData, setFormData] = useState({ name: "", price: "", imgUrl: "" });
+  // const [imgFile, setImgFile] = useState("");
   const handleInput = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -10,10 +11,6 @@ const AddItems = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-  };
-
-  const uploadImage = (e) => {
-    console.log(e.target.files[0]);
   };
 
   const postData = async (inputData) => {
@@ -27,6 +24,10 @@ const AddItems = () => {
     const data = await res.json();
     console.log(data);
   };
+
+  // const postImage = async() => {
+  //   const res = await fetch('/items')
+  // }
 
   return (
     <div>
@@ -75,10 +76,9 @@ const AddItems = () => {
               id="imgFile"
               name="imgFile"
               required
-              onChange={(e) => uploadImage(e)}
             />
           </div>
-          <button>url</button>
+
           <button
             className="btn btn-primary col-2"
             onClick={() => postData({ name, price, imgUrl })}

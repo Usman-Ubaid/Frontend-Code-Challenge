@@ -1,17 +1,13 @@
 import { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 
-const Items = () => {
+const Items = ({ handleClick, size }) => {
   const [items, setItems] = useState([]);
 
   const fetchItems = async (url) => {
     try {
       const res = await fetch(url, {
         method: "GET",
-        headers: {
-          // "Content-Type": "application/json",
-          Accept: "application/json",
-        },
       });
 
       setItems(await res.json());
@@ -39,7 +35,12 @@ const Items = () => {
                 <div className="card-body d-flex flex-column align-items-center justify-content-end ">
                   <h5 className="card-title">{element.name}</h5>
                   <p className="card-text">price: {element.price}</p>
-                  <button className="btn btn-primary">Add to Cart</button>
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => handleClick(element)}
+                  >
+                    Add to Cart
+                  </button>
                 </div>
               </div>
             </div>
@@ -51,10 +52,9 @@ const Items = () => {
 
   return (
     <>
-      <NavBar />
-      <section>
-        <Display />
-      </section>
+      <NavBar size={size} />
+
+      <Display />
     </>
   );
 };
