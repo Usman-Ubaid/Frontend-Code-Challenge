@@ -2,12 +2,12 @@ import { useState } from "react";
 import NavBar from "../components/NavBar";
 
 const AddItems = () => {
-  const [formData, setFormData] = useState({ name: "", price: "", imgUrl: "" });
-  // const [imgFile, setImgFile] = useState("");
+  const [formData, setFormData] = useState({ name: "", price: "", img: "" });
+  const [imgFile, setImgFile] = useState("");
   const handleInput = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  const { name, price, imgUrl } = formData;
+  const { name, price, img } = formData;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -22,12 +22,14 @@ const AddItems = () => {
       body: JSON.stringify(inputData),
     });
     const data = await res.json();
-    console.log(data);
+    if (data !== null) {
+      alert("Item added succesfully");
+    }
   };
 
-  // const postImage = async() => {
-  //   const res = await fetch('/items')
-  // }
+  const handleImage = (e) => {
+    setFormData({ ...formData, img: `./img/${e.target.files[0].name}` });
+  };
 
   return (
     <div>
@@ -72,16 +74,18 @@ const AddItems = () => {
             </label>
             <input
               type="file"
+              src={imgFile}
               className="form-control"
               id="imgFile"
               name="imgFile"
+              onChange={handleImage}
               required
             />
           </div>
 
           <button
             className="btn btn-primary col-2"
-            onClick={() => postData({ name, price, imgUrl })}
+            onClick={() => postData({ name, price, img })}
           >
             Add Product
           </button>
