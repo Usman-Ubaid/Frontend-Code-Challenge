@@ -1,7 +1,33 @@
 import { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 
-const Items = ({ handleClick, size }) => {
+const Display = ({ items, addItemsToCart }) => {
+  return (
+    <div className="container row bg-light text-center mx-auto py-4 d-flex align-items-stretch justify-content-center">
+      {items.map((item) => {
+        return (
+          <div className="col-md-4 col-lg-3 my-3 " key={item.id}>
+            <div className="card mx-4 h-100">
+              <img src={item.img} className="card-img-top" alt={item.name} />
+              <div className="card-body d-flex flex-column align-items-center justify-content-end ">
+                <h5 className="card-title">{item.name}</h5>
+                <p className="card-text">price: {item.price}</p>
+                <button
+                  className="btn btn-primary"
+                  onClick={() => addItemsToCart({ ...item, quantity: 1 })}
+                >
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
+const Products = ({ addItemsToCart, size }) => {
   const [items, setItems] = useState([]);
 
   const fetchItems = async (url) => {
@@ -20,43 +46,14 @@ const Items = ({ handleClick, size }) => {
     fetchItems("/items");
   }, []);
 
-  const Display = () => {
-    return (
-      <div className="container row text-center my-4 d-flex align-items-stretch justify-content-center">
-        {items.map((element) => {
-          return (
-            <div className="col-sm-3 my-3" key={element.id}>
-              <div className="card mx-4 h-100 ">
-                <img
-                  src={element.img}
-                  className="card-img-top"
-                  alt={element.name}
-                />
-                <div className="card-body d-flex flex-column align-items-center justify-content-end ">
-                  <h5 className="card-title">{element.name}</h5>
-                  <p className="card-text">price: {element.price}</p>
-                  <button
-                    className="btn btn-primary"
-                    onClick={() => handleClick(element)}
-                  >
-                    Add to Cart
-                  </button>
-                </div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    );
-  };
-
   return (
     <>
       <NavBar size={size} />
-
-      <Display />
+      <div className="bg-light">
+        <Display items={items} handleClick={addItemsToCart} />
+      </div>
     </>
   );
 };
 
-export default Items;
+export default Products;

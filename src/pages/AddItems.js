@@ -1,30 +1,18 @@
 import { useState } from "react";
 import NavBar from "../components/NavBar";
+import { postData } from "../api/postData";
 
 const AddItems = () => {
   const [formData, setFormData] = useState({ name: "", price: "", img: "" });
-  const [imgFile, setImgFile] = useState("");
-  const handleInput = (e) => {
+
+  const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const { name, price, img } = formData;
 
   const handleSubmit = (e) => {
     e.preventDefault();
-  };
-
-  const postData = async (inputData) => {
-    const res = await fetch("/items", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(inputData),
-    });
-    const data = await res.json();
-    if (data !== null) {
-      alert("Item added succesfully");
-    }
+    postData({ name, price, img });
   };
 
   const handleImage = (e) => {
@@ -32,12 +20,12 @@ const AddItems = () => {
   };
 
   return (
-    <div>
+    <div className="vh-100 bg-light">
       <NavBar />
 
-      <div className="container col-8 row-3">
+      <div className="container col-12 py-5 ">
         <form
-          className="d-flex flex-column align-items-center justify-content-center my-5"
+          className="col-8 mx-auto d-flex flex-column align-items-center justify-content-center"
           onSubmit={handleSubmit}
         >
           <div className="mb-3 col-6">
@@ -51,7 +39,7 @@ const AddItems = () => {
               name="name"
               placeholder="Name of the item"
               required
-              onChange={handleInput}
+              onChange={handleInputChange}
             />
           </div>
           <div className="mb-3 col-6">
@@ -65,7 +53,7 @@ const AddItems = () => {
               name="price"
               placeholder="Price of the item"
               required
-              onChange={handleInput}
+              onChange={handleInputChange}
             />
           </div>
           <div className="mb-3 col-6">
@@ -74,7 +62,7 @@ const AddItems = () => {
             </label>
             <input
               type="file"
-              src={imgFile}
+              src={img}
               className="form-control"
               id="imgFile"
               name="imgFile"
@@ -83,12 +71,7 @@ const AddItems = () => {
             />
           </div>
 
-          <button
-            className="btn btn-primary col-2"
-            onClick={() => postData({ name, price, img })}
-          >
-            Add Product
-          </button>
+          <button className="btn btn-primary col-2">Add Product</button>
         </form>
       </div>
     </div>
