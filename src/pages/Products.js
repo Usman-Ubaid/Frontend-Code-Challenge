@@ -50,7 +50,7 @@ const Products = ({ addItemsToCart, size }) => {
     <>
       <NavBar size={size} />
       <div className="bg-light">
-        <Display items={items} handleClick={addItemsToCart} />
+        <Display items={items} addItemsToCart={addItemsToCart} />
       </div>
     </>
   );

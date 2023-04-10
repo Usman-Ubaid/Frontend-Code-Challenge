@@ -2,7 +2,7 @@ import { useState } from "react";
 import NavBar from "../components/NavBar";
 import { postData } from "../api/postData";
 
-const AddItems = () => {
+const AddItems = ({ size }) => {
   const [formData, setFormData] = useState({ name: "", price: "", img: "" });
 
   const handleInputChange = (e) => {
@@ -21,7 +21,7 @@ const AddItems = () => {
 
   return (
     <div className="vh-100 bg-light">
-      <NavBar />
+      <NavBar size={size} />
 
       <div className="container col-12 py-5 ">
         <form

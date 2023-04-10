@@ -17,7 +17,7 @@ function App() {
     }
   };
 
-  const changeItemQuantity = (item, operator, id) => {
+  const changeItemQuantity = (operator, id) => {
     const index = cart.findIndex((cartItem) => cartItem.id === id);
 
     if (operator === "+") {
@@ -47,9 +47,11 @@ function App() {
         <Route path="/" element={<HomePage size={cart.length} />} />
         <Route
           path="/products"
-          element={<Products onClick={addItemsToCart} size={cart.length} />}
+          element={
+            <Products addItemsToCart={addItemsToCart} size={cart.length} />
+          }
         />
-        <Route path="/additems" element={<AddItems />} />
+        <Route path="/additems" element={<AddItems size={cart.length} />} />
         <Route
           path="/cart"
           element={
@@ -57,7 +59,7 @@ function App() {
               size={cart.length}
               cart={cart}
               setCart={setCart}
-              onClick={changeItemQuantity}
+              changeItemQuantity={changeItemQuantity}
             />
           }
         />
