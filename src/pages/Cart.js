@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import { Link } from "react-router-dom";
+import { FaTimes } from "react-icons/fa";
 
-const Cart = ({ size, cart, setCart, onClick }) => {
+const Cart = ({ size, cart, setCart, changeItemQuantity }) => {
   const [price, setPrice] = useState(0);
 
   const removeCartItem = (id) => {
-    const arr = cart.filter((item) => item.id !== id);
-    console.log(arr);
-    setCart(arr);
+    const filteredItems = cart.filter((item) => item.id !== id);
+    localStorage.setItem("cart", JSON.stringify(filteredItems));
+    setCart(filteredItems);
   };
 
   const handleTotalPrice = () => {
@@ -32,10 +33,10 @@ const Cart = ({ size, cart, setCart, onClick }) => {
                 <span className="h2 ">Shopping Cart </span>
                 <span className="h4 ">({size} item in your cart)</span>
               </p>
-              {cart.map((item, index) => {
+              {cart.map((item) => {
                 return (
                   <div className="card mb-4 w-50 mx-auto" key={item.id}>
-                    <div className="card-body p-4 ">
+                    <div className="card-body p-4 mx-auto">
                       <div className="row align-items-center">
                         <div className="col-md-2">
                           <img src={item.img} className="img-fluid" alt="img" />
@@ -60,7 +61,7 @@ const Cart = ({ size, cart, setCart, onClick }) => {
                                 }}
                                 className="btn btn-primary btn-sm mx-2 d-flex align-items-center justify-content-center"
                                 onClick={() => {
-                                  onClick(item, "+", item.id);
+                                  changeItemQuantity("+", item.id);
                                 }}
                               >
                                 +
@@ -71,7 +72,7 @@ const Cart = ({ size, cart, setCart, onClick }) => {
                               <button
                                 style={{ height: "20px", width: "10px" }}
                                 className="btn btn-primary btn-sm mx-2 d-flex align-items-center justify-content-center"
-                                onClick={() => onClick(item, "-", item.id)}
+                                onClick={() => changeItemQuantity("-", item.id)}
                                 disabled={item.quantity < 1}
                               >
                                 -
@@ -93,13 +94,20 @@ const Cart = ({ size, cart, setCart, onClick }) => {
                             </p>
                           </div>
                         </div>
-                        <div className="col-md-2 d-flex justify-content-center align-items-center">
-                          <div>
+                        <div className="col-md-2 d-flex justify-content-center align-items-center  ">
+                          <div
+                            style={{
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                              paddingBottom: "5rem",
+                            }}
+                          >
                             <button
+                              className="d-flex p-1 align-items-center justify-content-center "
                               onClick={() => removeCartItem(item.id)}
-                              className="btn btn-primary"
                             >
-                              remove
+                              <FaTimes />
                             </button>
                           </div>
                         </div>
