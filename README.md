@@ -11,6 +11,6 @@ React application project which fetches data from the backend and displays it on
 
 Install client side dependencies by running the following command in the root directory
 
-npm install `#000000` 
+`#000000 npm install` 
 
 
