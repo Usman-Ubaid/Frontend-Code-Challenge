@@ -2,7 +2,7 @@
 
 React Client side application that fetches data from the backend and displays it to the UI. It also can add items to the backend and has a shopping cart.
 
-## Prerequisite
+## Prerequisites
 
 1. React
 2. Bootstrap 5
