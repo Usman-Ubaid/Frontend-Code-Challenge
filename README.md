@@ -10,7 +10,8 @@ React application project which fetches data from the backend and displays it on
 ## Setting up Client Side
 
 Install client side dependencies by running the following command in the root directory
+```
+npm install 
 
-> npm install 
-
+```
 
